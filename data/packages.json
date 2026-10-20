@@ -1,0 +1,15 @@
+{
+  "packages": [
+    {
+      "id": "bakterie",
+      "title": "Bakterie",
+      "description": "Stavba, rozmnožování a význam bakterií.",
+      "file": "bakterie.csv",
+      "parts": [
+        { "n": 1, "title": "Stavba bakteriální buňky" },
+        { "n": 2, "title": "Rozmnožování a metabolismus" },
+        { "n": 3, "title": "Bakterie a člověk" }
+      ]
+    }
+  ]
+}

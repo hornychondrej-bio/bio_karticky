@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="cs">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Bio kartičky</title>
+    <meta name="description" content="Kartičky s opakováním podle FSRS pro studium biologie." />
+    <meta name="theme-color" content="#2f7d5b" />
+    <link rel="manifest" href="manifest.webmanifest" />
+    <link rel="icon" href="icons/icon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="icons/icon.svg" />
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <header id="header" class="header">
+      <h1>Bio kartičky</h1>
+      <button id="open-settings" class="icon-btn" aria-label="Nastavení">⚙</button>
+    </header>
+    <main id="app" class="app"></main>
+    <nav id="nav" class="nav" aria-label="Hlavní navigace"></nav>
+    <dialog id="settings"></dialog>
+    <dialog id="browser" class="browser"></dialog>
+    <noscript>Aplikace vyžaduje JavaScript.</noscript>
+    <script type="module" src="js/app.js"></script>
+  </body>
+</html>

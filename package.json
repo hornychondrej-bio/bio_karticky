@@ -1,0 +1,11 @@
+{
+  "name": "bio_karticky",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Bio kartičky – static FSRS flashcard web app",
+  "type": "module",
+  "scripts": {
+    "start": "npx --yes serve .",
+    "anki": "node tools/to_anki.js"
+  }
+}

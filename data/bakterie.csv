@@ -1,0 +1,22 @@
+id,front,back,part,type,tags
+b01,Jakého typu buňky jsou bakterie?,Prokaryotické – nemají jádro obalené membránou.,1,standard,
+b02,Co tvoří genetickou informaci bakterie?,Jeden kruhový chromozom (nukleoid) a často plazmidy.,1,standard,
+b03,Z čeho je tvořena buněčná stěna většiny bakterií?,Z peptidoglykanu (mureinu).,1,standard,
+b04,Jak se liší stěna grampozitivních a gramnegativních bakterií?,"Grampozitivní mají silnou vrstvu peptidoglykanu.
+Gramnegativní mají tenkou vrstvu a navíc vnější membránu.",1,standard,barveni
+b05,K čemu slouží bičík?,K pohybu bakterie.,1,standard,
+b06,Co jsou plazmidy?,"Malé kruhové molekuly DNA mimo hlavní chromozom, často nesou geny rezistence.",1,standard,
+b07,Jaké struktury slouží bakteriím k syntéze bílkovin?,Ribozomy (70S).,1,permanent,
+b08,Proč penicilin neškodí buňkám člověka?,"Blokuje tvorbu peptidoglykanu, který lidské buňky nemají.",1,extra,
+b09,Jak se bakterie rozmnožují?,Nepohlavně – příčným dělením.,2,standard,
+b10,Jak se nazývá přenos DNA mezi bakteriemi při jejich přímém spojení?,Konjugace.,2,standard,
+b11,Co je endospora?,"Odolné klidové stadium některých bakterií, které přežije sucho, žár i chemikálie.",2,standard,
+b12,Které bakterie provádějí fotosyntézu s uvolňováním kyslíku?,Sinice (cyanobakterie).,2,standard,
+b13,Jak se nazývají bakterie žijící bez kyslíku?,Anaerobní.,2,permanent,
+b14,Jaký je rozdíl mezi obligátně a fakultativně anaerobními bakteriemi?,"Obligátní kyslík nesnášejí, fakultativní žijí s kyslíkem i bez něj.",2,extra,
+b15,Uveď aspoň dvě onemocnění způsobená bakteriemi.,"Angína, salmonelóza, tetanus, borelióza, tuberkulóza.",3,standard,
+b16,Proč se při virové infekci nepodávají antibiotika?,"Antibiotika působí na bakterie, ne na viry.",3,standard,
+b17,Jak vzniká rezistence bakterií na antibiotika?,"Přežijí a namnoží se mutanti odolní vůči antibiotiku, geny se šíří např. plazmidy.",3,standard,
+b18,Jaký význam mají mléčné bakterie?,"Mléčné kvašení – výroba jogurtů, sýrů a kysaného zelí.",3,standard,
+b19,Jak pomáhají bakterie v trávicím traktu člověka?,"Rozkládají vlákninu, tvoří vitaminy (K, B12) a brání přemnožení choroboplodných bakterií.",3,permanent,
+b20,Co dělají hlízkové bakterie (Rhizobium)?,Vážou vzdušný dusík v kořenových hlízkách bobovitých rostlin.,3,extra,
