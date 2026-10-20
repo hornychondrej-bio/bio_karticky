@@ -1,22 +1,107 @@
 id,front,back,part,type,tags
-b01,Jakého typu buňky jsou bakterie?,Prokaryotické – nemají jádro obalené membránou.,1,standard,
-b02,Co tvoří genetickou informaci bakterie?,Jeden kruhový chromozom (nukleoid) a často plazmidy.,1,standard,
-b03,Z čeho je tvořena buněčná stěna většiny bakterií?,Z peptidoglykanu (mureinu).,1,standard,
-b04,Jak se liší stěna grampozitivních a gramnegativních bakterií?,"Grampozitivní mají silnou vrstvu peptidoglykanu.
-Gramnegativní mají tenkou vrstvu a navíc vnější membránu.",1,standard,barveni
-b05,K čemu slouží bičík?,K pohybu bakterie.,1,standard,
-b06,Co jsou plazmidy?,"Malé kruhové molekuly DNA mimo hlavní chromozom, často nesou geny rezistence.",1,standard,
-b07,Jaké struktury slouží bakteriím k syntéze bílkovin?,Ribozomy (70S).,1,permanent,
-b08,Proč penicilin neškodí buňkám člověka?,"Blokuje tvorbu peptidoglykanu, který lidské buňky nemají.",1,extra,
-b09,Jak se bakterie rozmnožují?,Nepohlavně – příčným dělením.,2,standard,
-b10,Jak se nazývá přenos DNA mezi bakteriemi při jejich přímém spojení?,Konjugace.,2,standard,
-b11,Co je endospora?,"Odolné klidové stadium některých bakterií, které přežije sucho, žár i chemikálie.",2,standard,
-b12,Které bakterie provádějí fotosyntézu s uvolňováním kyslíku?,Sinice (cyanobakterie).,2,standard,
-b13,Jak se nazývají bakterie žijící bez kyslíku?,Anaerobní.,2,permanent,
-b14,Jaký je rozdíl mezi obligátně a fakultativně anaerobními bakteriemi?,"Obligátní kyslík nesnášejí, fakultativní žijí s kyslíkem i bez něj.",2,extra,
-b15,Uveď aspoň dvě onemocnění způsobená bakteriemi.,"Angína, salmonelóza, tetanus, borelióza, tuberkulóza.",3,standard,
-b16,Proč se při virové infekci nepodávají antibiotika?,"Antibiotika působí na bakterie, ne na viry.",3,standard,
-b17,Jak vzniká rezistence bakterií na antibiotika?,"Přežijí a namnoží se mutanti odolní vůči antibiotiku, geny se šíří např. plazmidy.",3,standard,
-b18,Jaký význam mají mléčné bakterie?,"Mléčné kvašení – výroba jogurtů, sýrů a kysaného zelí.",3,standard,
-b19,Jak pomáhají bakterie v trávicím traktu člověka?,"Rozkládají vlákninu, tvoří vitaminy (K, B12) a brání přemnožení choroboplodných bakterií.",3,permanent,
-b20,Co dělají hlízkové bakterie (Rhizobium)?,Vážou vzdušný dusík v kořenových hlízkách bobovitých rostlin.,3,extra,
+bak001,"Které specifické části nalezneme u prokaryotické (bakteriální) buňky navíc oproti eukaryotům?","Mikrokompartmenty, fimbrie, pili, plasmidy.
+(Rozšiřující: glykokalyx, endospory.)",1,standard,C1 stavba
+bak002,"Co jsou fimbrie bakterií a k čemu slouží?","„Vlásky“ na povrchu bakterií; slouží k pohybu a přichycení.",1,standard,C1 stavba
+bak003,"K čemu slouží pilus (mn. pili) u bakterií?","K výměně genetického materiálu (plasmidů) mezi bakteriemi – horizontální přenos genů.",1,permanent,C1 C3 stavba
+Pili: výměna plasmidů mezi bakteriemi.",1,standard,C1 stavba
+bak006,"Co jsou plasmidy u bakterií?","Kusy DNA, které si bakterie předávají mezi sebou pomocí pilů; kódují různé produkty.",1,permanent,C1 C3 stavba
+bak008,"Co je glykokalyx bakterií a kde se nachází?","Pouzdro („sliz“) ze sacharidů a bílkovin na povrchu některých bakterií, nad buněčnou stěnou.",1,extra,C2 stavba
+bak009,"Jaké funkce má glykokalyx bakterií?","Ochrana před imunitou hostitele, antibiotiky a vyschnutím.
+Přilepení k povrchu.
+Tvorba kolonií.",1,extra,C2 stavba
+bak010,"Co je endospora bakterií?","Klidové stádium některých bakterií – vnitřní ochrana.",1,extra,C2 stavba
+bak011,"Jak vzniká bakteriální endospora?","Uvnitř buňky se chromozom s ribozomy obalí vrstvou peptidoglykanu a bílkovin.",1,extra,C2 stavba
+bak013,"Srovnej glykokalyx a endosporu bakterií (funkce, složení, místo vzniku).","Obojí chrání bakterii.
+Glykokalyx: vnější ochrana; sacharidy a bílkoviny; na povrchu nad buněčnou stěnou.
+Endospora: klidové stádium, vnitřní ochrana; peptidoglykan a bílkoviny; vzniká uvnitř buňky.",1,extra,C2 stavba
+bak014,"Co je horizontální přenos genů u bakterií?","Předávání kusů DNA (plasmidů) mezi bakteriemi v rámci jedné generace – nevznikají nové buňky.",1,permanent,C3 prenos
+bak015,"Popiš princip horizontálního přenosu genů pomocí termínů plasmid a pilus.","Bakterie předá pomocí pilu plasmid (kus DNA) jiné bakterii; ta tak získá vlastnosti, které plasmid kóduje.",1,permanent,C3 prenos
+bak016,"Uveď vlastnost bakterií, kterou kódují plasmidy a která se šíří horizontálním přenosem genů.","Odolnost proti antibiotikům.",1,permanent,C3 prenos
+bak017,"Uveď příklad využití plasmidů lidmi.","Výroba insulinu pomocí bakterií.",1,permanent,C3 prenos
+bak018,"Co jsou antibiotika?","Sloučeniny zabíjející bakterie; používají se k léčbě bakteriálních infekcí.",2,standard,C4 lecba
+bak019,"Proti kterým původcům nemocí antibiotika nefungují?","Proti virům.",2,standard,C4 C5 lecba
+bak020,"Proč mají antibiotika vedlejší účinky?","Zabíjejí i přínosné bakterie, nejen původce nemoci.",2,standard,C4 C5 lecba
+bak021,"Vyjmenuj typy léčby bakteriálních onemocnění.","Antibiotika, bakteriofágy.
+(Rozšiřující: vypínání bakteriálních genů pomocí RNA, řízené nakažení příznivými bakteriemi.)",2,standard,C4 lecba
+bak022,"Co jsou bakteriofágy a jak pomáhají při léčbě bakteriálních onemocnění?","Viry napadající bakterie; mohou zničit původce nemoci – alternativa k antibiotikům.",2,standard,C4 lecba
+bak026,"Co jsou multirezistentní bakterie a kde vznikají?","Bakterie odolné vůči více antibiotikům; vznikají tam, kde jsou vystaveny různým antibiotikům (nemocnice, čističky vod).",2,standard,C5 rezistence
+bak027,"Proč jsou rezistentní bakterie zásadní světový problém?","Vznikají rychleji než nová antibiotika a zabíjejí přes milion lidí ročně.",2,standard,C5 rezistence
+bak029,"Jaký dopad má nadužívání antibiotik na evoluci bakterií?","Bakterie jsou častěji vystaveny antibiotikům, přežívají a šíří se ty odolné → vznikají rezistentní až multirezistentní bakterie.",2,standard,C5 rezistence
+bak030,"Jaký dopad má nadužívání antibiotik na zdravotnický systém?","Přibývá rezistentních bakterií, infekce se hůře léčí a nová antibiotika nestíhají vznikat; navíc vedlejší účinky (hynou přínosné bakterie).",2,standard,C5 rezistence
+bak033,"Popiš postup dělení bakteriální buňky.","1. Kruhový chromozom se replikuje (vzniká nový).
+2. Buňka se rozdělí na dvě, každá s jedním chromozomem.
+3. V místě dělení doroste nová buněčná stěna.",2,standard,C6 rozmnozovani
+bak035,"Podle jakých znaků se třídí bakterie?","Tvar
+Počet a umístění bičíků
+Typ buněčné stěny
+Mnohobuněčnost
+Vztah k uhlíku a zdroj energie",2,standard,C7 trideni
+bak036,"Jak se dělí bakterie podle tvaru?","Koky (kulaté) a bacily (tyčinky).",2,standard,C7 trideni
+bak037,"Jak se dělí bakterie podle typu buněčné stěny?","Gram-pozitivní a gram-negativní.",2,standard,C7 trideni
+bak038,"Jak se dělí bakterie podle mnohobuněčnosti?","Samostatné a žijící v koloniích.",2,standard,C7 trideni
+bak044,"Co znamená, že bakterie je fotoautotrofní? Uveď příklad.","Energii získává ze slunce, uhlík z CO2.
+Příklad: sinice.",2,extra,C8 trideni
+bak045,"Co znamená, že bakterie je chemoheterotrofní? Uveď příklad.","Energii získává oxidací (spalováním), uhlík z organických sloučenin.
+Příklad: lidské patogeny.",2,extra,C8 trideni
+bak046,"Co je mikrobiota?","Soubor organismů žijících na jednom místě.",3,permanent,C9 mikrobiota
+bak050,"Jaký přínos má střevní mikrobiota pro lidské tělo?","Trávení potravy.
+Ochrana před nemocemi.",3,permanent,C9 mikrobiota
+bak054,"Jaký přínos má vaginální mikrobiota?","Laktobacily obalí poševní stěny, okyselují prostředí, zabíjejí nebezpečné bakterie a plísně a zabíjejí špatné spermie.",3,extra,C9 mikrobiota
+bak055,"Co může poškodit vaginální mikrobiotu a jaký je následek?","Antibiotika či zásadité hygienické produkty → kvasinková infekce.",3,extra,C9 mikrobiota
+bak056,"Zubní kaz: Jak vzniká, jak se léčí a jak se mu předchází?","Bakterie v plaku tvoří kyseliny, které narušují zubní tkáň.
+Léčba: vrtání.
+Prevence: čištění zubů, omezení cukrů.",3,standard,C10 nemoci
+bak057,"Angína: Jaké má projevy a jak se šíří?","Bolest v krku, obtížné polykání, kašel, zimnice, horečka.
+Šíří se vzduchem.",3,standard,C10 nemoci
+bak059,"Tuberkulóza: Jaké má projevy a jak se šíří?","Kašel (až vykašlávání krve), horečka, ztráta hmotnosti; většina nakažených je bez příznaků. Šíří se vzduchem.",3,standard,C10 nemoci
+bak060,"Která bakteriální nemoc je nejvražednější a kolik lidí ročně zabíjí?","Tuberkulóza – přes milion lidí ročně.",3,standard,C10 nemoci
+bak061,"Salmonelóza: Jaké má projevy a jak se šíří?","Průjem, horečka, zvracení.
+Šíří se přes potravu, zvířata, vodu.",3,standard,C10 nemoci
+bak062,"Borelióza: Jak se šíří a jaké má projevy v první fázi?","Šíří se přes klíšťata.
+Typická červená skvrna, projevy jako chřipka.",3,standard,C10 nemoci
+bak063,"Co se děje při neléčené borelióze?","Šíří se do kloubů, srdce a mozku – různé projevy.",3,standard,C10 nemoci
+bak064,"Kapavka: Jaké má projevy a jak se šíří?","Pálení a výrony z pohlavních a vylučovacích orgánů, často bez příznaků.
+Šíří se pohlavně.",3,standard,C10 nemoci
+bak065,"Které nemoci je kapavka podobná příznaky?","Chlamydióze.",3,standard,C10 nemoci
+bak066,"Vyjmenuj alespoň pět bakteriálních nemocí uvedených v učebním materiálu.","Zubní kaz, angína, tuberkulóza, salmonelóza, borelióza, kapavka.
+(Rozšiřující: tetanus, syfilis.)",3,standard,C10 nemoci
+bak067,"Tetanus: Jak se člověk nakazí a jaké má projevy?","Infekcí skrze otevřené rány.
+Křeče (až lámání kostí), smrtelná nemoc.",3,extra,C10 nemoci
+bak069,"Syfilis (příjice): Jaké má projevy a jak se šíří?","Vředy a vyrážky, napodobuje jiné nemoci, projevy i desítky let po infekci.
+Šíří se pohlavně.",3,extra,C10 nemoci
+bak070,"Které bakterie způsobují zubní kaz?","Streptococcus, Lactobacillus.",3,extra,C10 puvodci
+bak071,"Která bakterie způsobuje angínu?","Streptococcus.",3,extra,C10 puvodci
+bak072,"Která bakterie způsobuje tuberkulózu?","Mycobacterium tuberculosis.",3,extra,C10 puvodci
+bak073,"Která bakterie způsobuje salmonelózu?","Salmonella.",3,extra,C10 puvodci
+bak074,"Která bakterie způsobuje boreliózu?","Borrelia.",3,extra,C10 puvodci
+bak075,"Která bakterie způsobuje kapavku?","Neisseria gonorrhoeae.",3,extra,C10 puvodci
+bak076,"Která bakterie způsobuje tetanus?","Clostridium tetani.",3,extra,C10 puvodci
+bak077,"Která bakterie způsobuje syfilis (příjici)?","Treponema pallidum.",3,extra,C10 puvodci
+bak078,"Co jsou sinice (Cyanobacteria)?","Specializovaná skupina fotoautotrofních bakterií.",4,standard,C11 C12 sinice
+bak079,"Jaký význam mají sinice pro kyslík na Zemi?","Vyrábějí většinu kyslíku na Zemi.",4,standard,C12 sinice
+bak080,"Co jsou thylakoidy sinic a k čemu slouží?","Soustava vnitřních membrán; probíhá na nich zachytávání sluneční energie.",4,standard,C11 sinice
+bak081,"Co jsou fykobilizomy sinic?","Bílkovinné antény u thylakoidů, které zachycují světlo nezachycené chlorofylem (umožňují fotosyntézu v hloubkách).",4,extra,C11 sinice
+bak082,"Co jsou karboxyzomy sinic?","Mikrokompartmenty (bílkovinné „pytlíky“), ve kterých se koncentruje CO2 a váže se při fotosyntéze.",4,extra,C11 sinice
+bak083,"Co jsou plynové vakuoly sinic?","Mikrokompartmenty, které sinice nadnášejí.",4,extra,C11 sinice
+bak084,"Vyjmenuj speciální struktury sinic.","Fykobilizomy, karboxyzomy, plynové vakuoly.",4,extra,C11 sinice
+bak085,"Co je fixace dusíku u sinic?","Některé sinice ve speciálních buňkách přemění vzdušný dusík (N2), čímž ho zpřístupní pro výrobu aminokyselin.",4,standard,C12 sinice
+bak086,"Jak sinice prospívají rostlinám?","Bývají vázány na rostliny a fixací dusíku je „hnojí“ (např. rýžová pole, sója).",4,standard,C12 sinice
+bak087,"Co je vodní květ a jaké má dopady?","Sinice zaberou velké vodní těleso; voda se „přehnojí“, což omezuje ostatní organismy, a sinice tvoří jedy (problém při koupání v zelené vodě).",4,standard,C12 sinice
+bak088,"Proč se sinice využívají jako doplňky stravy?","Mají velké množství bílkovin a dalších živin (např. „Spirulina“).",4,standard,C12 sinice
+bak089,"Zhodnoť dopad sinic na životní prostředí a člověka (přínosy a rizika).","Přínosy: většina kyslíku na Zemi, fixace dusíku („hnojení“ rostlin), doplňky stravy.
+Rizika: vodní květ, tvorba jedů.",4,standard,C12 sinice
+bak090,"Jak se dělí sinice podle tvaru?","Jednobuněčné a mnohobuněčné (vláknité).",4,standard,C13 sinice
+bak091,"Uveď příklady jednobuněčných sinic.","Chroococcus, Microcystis.",4,standard,C13 sinice
+bak093,"Uveď příklady vláknitých sinic.","Anabaena, Arthrospira, Nostoc.",4,standard,C13 sinice
+bak097,"Na jaké dvě skupiny se podle dnes obecně přijímané představy dělí veškerý život?","Bacteria.
+Archaea + Eukarya.",4,extra,C14 archea
+bak098,"Co jsou archea?","Skupina prokaryot odlišná od bakterií; vlastnostmi většinou mezi bakteriemi a eukaryoty.",4,extra,C14 archea
+bak099,"Čím jsou archea unikátní a co jim to umožňuje?","Naprosto unikátní tvorbou fosfolipidů; umožňuje jim to přežít v extrémech (horko, slano).",4,extra,C14 archea
+bak100,"Jaký je evoluční význam archeí?","Eukaryota pravděpodobně vznikla tím, že archeon pohltil bakterii schopnou spalovat pomocí kyslíku (vznik mitochondrie) – archea jsou tedy našimi předky.",4,extra,C14 archea
+bak101,"Jaký význam mají archea pro člověka?","Tepelně stabilní enzymy (potravinářství), nová antibiotika (medicína), běžná součást střevního mikrobiomu; zatím není známé žádné archeon způsobující nemoc.",4,extra,C14 archea
+bak102,"Co jsou priony?","Špatně složené bílkoviny, které dokážou měnit tvar správně složených bílkovin; jsou odolné proti trávicím enzymům.",4,standard,C15 priony
+bak103,"Jaké nemoci způsobují priony a jak se léčí?","Nakažlivé, velmi vzácné, ale smrtelné nemoci; léčba neexistuje.",4,standard,C15 priony
+bak104,"Uveď příklady nemocí způsobených priony.","BSE (nemoc šílených krav), Creutzfeldtova-Jakobova nemoc, kuru.",4,standard,C15 priony
+bak105,"Co je Creutzfeldtova-Jakobova nemoc?","Prionová nemoc – BSE u člověka.",4,standard,C15 priony
+bak106,"Co je kuru?","Prionová nemoc kanibalů, kteří jedli lidské mozky.",4,standard,C15 priony
+bak108,"Jak se nazývá soustava vnitřních membrán sinic, na které probíhá zachytávání sluneční energie?","Thylakoidy.",4,standard,C11 sinice

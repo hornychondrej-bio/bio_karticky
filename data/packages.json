@@ -7,8 +7,9 @@
       "file": "bakterie.csv",
       "parts": [
         { "n": 1, "title": "Stavba bakteriální buňky" },
-        { "n": 2, "title": "Rozmnožování a metabolismus" },
-        { "n": 3, "title": "Bakterie a člověk" }
+        { "n": 2, "title": "Léčba nemocí, členění a rozmnožování" },
+	{ "n": 3, "title": "Mikrobiota a nemoci" },
+        { "n": 4, "title": "Sinice, archea, priony" }
       ]
     }
   ]
