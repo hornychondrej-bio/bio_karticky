@@ -13,15 +13,16 @@ A static, dependency-free flashcard web app with [FSRS](https://github.com/open-
 2. [Concepts: packages, parts, card types](#concepts-packages-parts-card-types)
 3. [Using the app](#using-the-app)
 4. [Adding and editing cards](#adding-and-editing-cards)
-5. [Creating cards with AI](#creating-cards-with-ai)
-6. [Progress export / import](#progress-export--import)
-7. [Anki export](#anki-export)
-8. [Deploy to GitHub Pages](#deploy-to-github-pages)
-9. [PWA, offline use and browsers](#pwa-offline-use-and-browsers)
-10. [Configuration and internals](#configuration-and-internals)
-11. [Project layout](#project-layout)
-12. [Limitations](#limitations)
-13. [Troubleshooting](#troubleshooting)
+5. [Validating cards](#validating-cards)
+6. [Creating cards with AI](#creating-cards-with-ai)
+7. [Progress export / import](#progress-export--import)
+8. [Anki export](#anki-export)
+9. [Deploy to GitHub Pages](#deploy-to-github-pages)
+10. [PWA, offline use and browsers](#pwa-offline-use-and-browsers)
+11. [Configuration and internals](#configuration-and-internals)
+12. [Project layout](#project-layout)
+13. [Limitations](#limitations)
+14. [Troubleshooting](#troubleshooting)
 
 ## Quick start
 
@@ -137,16 +138,59 @@ Rows without `id` or `front` are skipped; a duplicate `id` is skipped with a con
 - Changing `part` or `type` moves the card in/out of the pool according to the rules above; progress is kept.
 - Changes reach students on their next online visit (see [PWA](#pwa-offline-use-and-browsers)).
 
+## Validating cards
+
+```sh
+npm run validate     # = node tools/validate_cards.js
+```
+
+Run it after every manual or AI-made change to `data/`. It reads `data/packages.json` and every CSV listed there, prints one summary line per package (cards by type, parts used) and exits with code `1` if there is at least one **error** (warnings do not fail it), so it can also be used in CI or a git hook.
+
+**Errors** (the app would drop or misbehave on these):
+
+- package `id` missing, not lowercase ASCII / digits / `_`, or duplicated; missing `title`
+- the CSV file listed in `packages.json` does not exist
+- missing required column (`id`, `front`, `back`)
+- a row with the wrong number of columns (typically an unquoted comma in a text)
+- empty `id`, `front` or `back`; duplicate `id` within a package
+- unknown `type` (allowed: `standard`, `extra`, `permanent`)
+- `part` that is not a positive integer
+- a leftover `&&` or `@@` marker in a card (it must not be copied from the source material)
+
+**Warnings** (probably a mistake, but the app still works):
+
+- two cards with the same `front`
+- text that looks like HTML or Markdown (cards are plain text)
+- a field longer than 400 characters (split it into atomic cards)
+- parts that are not contiguous from 1, a part with cards but no title in `packages.json`, or a titled part without cards
+- more than 20 % `permanent` cards (recommended 5–15 %)
+
+It checks the **format** only. It cannot tell whether a card is correct or whether the cards cover the learning outcomes – that is what the coverage report from the AI guide and a human review are for.
+
 ## Creating cards with AI
 
-[`docs/AI_CARD_AUTHORING.md`](docs/AI_CARD_AUTHORING.md) is a ready-to-use guide: give it to an AI together with the course material and ask it to follow the guide. It makes the AI:
+[`docs/AI_CARD_AUTHORING.md`](docs/AI_CARD_AUTHORING.md) is a self-contained prompt for an AI assistant. It is written for the AI (what to read, how to build the cards, which format to output); you only supply the course material.
 
-- use the learning outcomes (**„Cíle“**) as the backbone and break vague outcomes into concrete cards (e.g. "charakterizovat tři nemoci" → cards for five diseases plus one overview card),
-- treat material wrapped in `&&…&&` (or `@@…@@`) as `extra`,
-- tag every card with the outcome it serves, pick a small set of `permanent` cards, and write atomic Czech plain-text cards,
-- deliver the CSV, the `packages.json` entry, and a coverage report (outcome → cards, gaps, judgement calls).
+### Workflow
 
-Always run `npm run validate` on the result and review the coverage report before publishing.
+1. Collect the course material as text (lesson notes, slides exported to text, …). Keep the **„Cíle“** (learning outcomes) in it if the material has them.
+2. Mark optional / enrichment passages with `&&…&&`, e.g. `&&Bakterie jsou prokaryota.&&` (`@@…@@` is accepted as the same marker). These become `extra` cards.
+3. Give the AI the guide **and** the material, e.g.: *„Follow `AI_CARD_AUTHORING.md` and create the card package for the attached material.“* Use an assistant that can read both files; if it can run commands in this repository, it can also run `npm run validate` itself.
+4. Save the CSV it returns as `data/<package-id>.csv` and add the `packages.json` entry it returns.
+5. Run `npm run validate` and fix errors (or ask the AI to).
+6. Read the **coverage report** (outcome → card ids, gaps, judgement calls) and edit the CSV by hand where needed. Check especially the cards marked low confidence and everything under "Gaps".
+7. Open the app (`npm start`), switch the new parts on and study a few cards, then push.
+
+### What the guide makes the AI do
+
+- **Use the Cíle as the backbone.** Every outcome is numbered `C1…Cn` and broken down into the concrete knowledge a student needs to meet it, taken from the material. Vague outcomes are expanded: "Dokážu charakterizovat tři bakteriální nemoci" becomes cards for *all five* diseases found in the material plus one overview card listing them. The outcome's verb (vyjmenuje, porovná, vysvětlí, …) selects the card pattern. Without outcomes it falls back to the headings and says so.
+- **Respect `&&`.** Extra material becomes `type = extra`; anything an outcome requires stays `standard`; the markers never appear in cards.
+- **Structure the package.** Parts are contiguous teaching units (2–5 parts, 10–40 cards each, no forward dependencies). `permanent` is reserved for a small set (about 5–15 %) of foundational terms.
+- **Write good cards.** Atomic, self-contained fronts, no yes/no questions, short precise answers, plain-text Czech, no invented facts, stable ids (`bak001`, `bak002`, …).
+- **Trace outcomes.** The `tags` column holds the outcome ids a card serves (`C1`, `C2 C5`), so you can later see which cards belong to which outcome (the tags also go to the Anki export).
+- **Deliver three things:** the CSV, the `packages.json` entry, and a coverage report (table of outcome → cards with confidence, gaps, judgement calls, counts per part and type).
+
+Edit the guide itself if your conventions differ (e.g. what counts as `permanent`, cards per part); it is plain Markdown.
 
 ## Progress export / import
 
