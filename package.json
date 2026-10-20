@@ -6,6 +6,7 @@
   "type": "module",
   "scripts": {
     "start": "npx --yes serve .",
-    "anki": "node tools/to_anki.js"
+    "anki": "node tools/to_anki.js",
+    "validate": "node tools/validate_cards.js"
   }
 }

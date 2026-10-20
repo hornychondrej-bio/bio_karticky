@@ -3,7 +3,7 @@ import { loadPackages } from './data.js';
 import { store, save, recordReview, doneToday, setPartActive, exportData, importData, resetAll } from './store.js';
 import { schedule, previewLabels } from './fsrs.js';
 import { buildQueue } from './scheduler.js';
-import { MASTERY, MATURE_INTERVAL_DAYS, masteryOf, masteryCounts, streaks, recentActivity } from './stats.js';
+import { MASTERY, MATURE_INTERVAL_DAYS, masteryOf, masteryCounts, studiedTotal, streaks, recentActivity } from './stats.js';
 import { DAY, dayIndex } from './time.js';
 
 const EXPORT_REMINDER_DAYS = 7;
@@ -20,6 +20,8 @@ let packages = [];
 let loadErrors = [];
 let tab = 'today';
 let session = null;
+const openDecks = new Set(); // ids of expanded decks in Balíčky; survives re-renders
+let deckQuery = ''; // current search text in Balíčky; survives re-renders
 
 const root = document.getElementById('app');
 
@@ -43,6 +45,8 @@ function h(tag, props, ...kids) {
 const plural = (n, one, few, many) => `${n} ${n === 1 ? one : n >= 2 && n <= 4 ? few : many}`;
 const cardsWord = (n) => plural(n, 'karta', 'karty', 'karet');
 const allCards = () => packages.flatMap((p) => p.cards);
+// Lower-case and strip diacritics so "bakterie" finds "Bakterie" and "sinice" finds "Sinice".
+const normalize = (text) => text.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
 
 function applyTheme() {
   const t = store.settings.theme;
@@ -157,10 +161,32 @@ function viewDecks() {
 
   const decks = packages.map((pkg) => {
     const counts = masteryCounts(pkg.cards);
+    const activeParts = pkg.parts.filter((p) => s.parts[`${pkg.id}/${p.n}`]?.active).length;
+    const dueCount = buildQueue(packages, Date.now(), pkg.id).queue.length;
     return h(
-      'section',
-      { class: 'card' },
-      h('h2', null, pkg.title),
+      'details',
+      {
+        class: 'card deck',
+        open: openDecks.has(pkg.id),
+        'data-pkg': pkg.id,
+        // Auto-opened search results are not remembered; only manual toggles outside a search are.
+        ontoggle: (e) => { if (!deckQuery) e.target.open ? openDecks.add(pkg.id) : openDecks.delete(pkg.id); },
+      },
+      h(
+        'summary',
+        null,
+        h('span', { class: 'deck-title' }, h('strong', null, pkg.title), h('small', { class: 'muted' }, `Aktivní části: ${activeParts}/${pkg.parts.length} · ve studiu: ${cardsWord(studiedTotal(counts))}`)),
+        h(
+          'button',
+          {
+            class: 'btn primary small',
+            disabled: !dueCount,
+            title: dueCount ? '' : 'V tomto balíčku není nic k učení – zapněte část nebo se vraťte později.',
+            onclick: (e) => { e.preventDefault(); e.stopPropagation(); startSession(pkg.id); },
+          },
+          dueCount ? `Studovat (${dueCount})` : 'Nic k učení',
+        ),
+      ),
       pkg.description && h('p', { class: 'muted' }, pkg.description),
       masteryBar(counts),
       ...pkg.parts.map((part) => {
@@ -195,7 +221,34 @@ function viewDecks() {
     );
   });
 
-  return [general, ...decks, errorsBox()];
+  const empty = h('p', { class: 'muted', hidden: true }, 'Žádný balíček neodpovídá hledání.');
+  const searchText = new Map(packages.map((p) => [p.id, normalize([p.title, p.description, ...p.parts.map((x) => x.title)].join(' '))]));
+
+  /** Hides decks that do not match the query; matching decks are expanded while searching. */
+  function applyFilter(query) {
+    deckQuery = query.trim();
+    const q = normalize(deckQuery);
+    let shown = 0;
+    for (const el of decks) {
+      const match = !q || searchText.get(el.dataset.pkg).includes(q);
+      el.hidden = !match;
+      el.open = q ? match : openDecks.has(el.dataset.pkg);
+      if (match) shown++;
+    }
+    empty.hidden = shown > 0;
+  }
+
+  const search = h('input', {
+    type: 'search',
+    class: 'deck-search',
+    placeholder: 'Hledat balíček nebo část…',
+    'aria-label': 'Hledat balíček nebo část',
+    value: deckQuery,
+    oninput: (e) => applyFilter(e.target.value),
+  });
+  applyFilter(deckQuery);
+
+  return [general, search, ...decks, empty, errorsBox()];
 }
 
 function masteryBar(counts, legend = true) {
@@ -208,7 +261,7 @@ function masteryBar(counts, legend = true) {
       { class: 'bar', role: 'img', 'aria-label': MASTERY.map((m) => `${m.label}: ${counts[m.id]}`).join(', ') },
       MASTERY.filter((m) => counts[m.id]).map((m) => h('span', { class: `seg ${m.id}`, style: `width:${(counts[m.id] / total) * 100}%` })),
     ),
-    legend && h('ul', { class: 'legend' }, MASTERY.map((m) => h('li', null, h('i', { class: `dot ${m.id}` }), `${m.label} ${counts[m.id]}`))),
+    legend && h('ul', { class: 'legend' }, MASTERY.filter((m) => m.id !== 'inactive' || counts.inactive).map((m) => h('li', null, h('i', { class: `dot ${m.id}` }), `${m.label} ${counts[m.id]}`))),
   );
 }
 
@@ -243,13 +296,16 @@ function viewStats() {
         ),
       ),
     ),
-    h('section', { class: 'card' }, h('h2', null, 'Zvládnutí karet – celkem'), masteryBar(masteryCounts(allCards())), masteryHelp()),
-    ...packages.map((pkg) => h('section', { class: 'card' }, h('h2', null, pkg.title), masteryBar(masteryCounts(pkg.cards)))),
+    h('section', { class: 'card' }, h('h2', null, 'Zvládnutí karet ve studiu'), studiedTotal(masteryCounts(allCards())) ? masteryBar(masteryCounts(allCards())) : h('p', { class: 'muted' }, 'Žádné karty ve studiu.'), masteryHelp()),
+    ...packages.map((pkg) => {
+      const counts = masteryCounts(pkg.cards);
+      return h('section', { class: 'card' }, h('h2', null, pkg.title), studiedTotal(counts) ? masteryBar(counts) : h('p', { class: 'muted' }, 'Žádné karty ve studiu.'));
+    }),
   ];
 }
 
 const masteryHelp = () =>
-  h('p', { class: 'muted help' }, `Zamčené: část ještě nebyla zapnuta. Nové: ještě nezkoušené. Učím se: v krátkých krocích. Mladé: další opakování za méně než ${MATURE_INTERVAL_DAYS} dní. Zvládnuté: další opakování za ${MATURE_INTERVAL_DAYS} a více dní.`);
+  h('p', { class: 'muted help' }, `Statistiky počítají jen karty ve studiu. Nové: ještě nezkoušené. Učím se: v krátkých krocích. Mladé: další opakování za méně než ${MATURE_INTERVAL_DAYS} dní. Zvládnuté: další opakování za ${MATURE_INTERVAL_DAYS} a více dní.`);
 
 // ---------------------------------------------------------------- card browser
 
@@ -257,7 +313,7 @@ const browser = document.getElementById('browser');
 
 function dueText(card) {
   const level = masteryOf(card);
-  if (level === 'locked') return 'zamčená (část nebyla zapnuta)';
+  if (level === 'inactive') return 'mimo studium';
   const p = store.progress[card.key];
   if (!p || p.st === 0) return 'nová';
   if (p.st !== 2) return 'učí se';
@@ -300,11 +356,11 @@ function openBrowser(pkg) {
       'div',
       { class: 'browser-body' },
       h('div', { class: 'browser-head' }, h('h2', null, pkg.title), h('button', { class: 'icon-btn', 'aria-label': 'Zavřít', onclick: () => browser.close() }, '✕')),
-      masteryBar(masteryCounts(pkg.cards)),
+      masteryBar(masteryCounts(pkg.cards, true)),
       h(
         'div',
         { class: 'part-progress' },
-        pkg.parts.map((part) => h('div', null, h('div', { class: 'name' }, `${part.n}. ${part.title}`), masteryBar(masteryCounts(pkg.cards.filter((c) => c.part === part.n)), false))),
+        pkg.parts.map((part) => h('div', null, h('div', { class: 'name' }, `${part.n}. ${part.title}`), masteryBar(masteryCounts(pkg.cards.filter((c) => c.part === part.n), true), false))),
       ),
       masteryHelp(),
       h('div', { class: 'filters' }, search, partSel, typeSel, levelSel),

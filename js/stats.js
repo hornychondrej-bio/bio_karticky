@@ -1,9 +1,10 @@
 // Statistics derived from progress and the review log.
 import { DAY, dayIndex } from './time.js';
 import { store } from './store.js';
+import { inPool } from './scheduler.js';
 
 export const MASTERY = [
-  { id: 'locked', label: 'Zamčené' },
+  { id: 'inactive', label: 'Mimo studium' },
   { id: 'new', label: 'Nové' },
   { id: 'learning', label: 'Učím se' },
   { id: 'young', label: 'Mladé' },
@@ -13,19 +14,28 @@ export const MASTERY = [
 export const MATURE_INTERVAL_DAYS = 21;
 
 export function masteryOf(card) {
-  if (!store.settings.parts[`${card.pkg}/${card.part}`]) return 'locked';
+  if (!inPool(card, store.settings)) return 'inactive';
   const p = store.progress[card.key];
   if (!p || p.st === 0) return 'new';
   if (p.st !== 2) return 'learning';
   return (p.due - p.last) / DAY >= MATURE_INTERVAL_DAYS - 0.5 ? 'mature' : 'young';
 }
 
-/** Counts of cards per mastery level for a list of cards. */
-export function masteryCounts(cards) {
+/**
+ * Counts of cards per mastery level. By default only cards currently in the study pool are counted,
+ * so the numbers describe what the student is studying now; `includeInactive` also counts the rest.
+ */
+export function masteryCounts(cards, includeInactive = false) {
   const counts = Object.fromEntries(MASTERY.map((m) => [m.id, 0]));
-  for (const card of cards) counts[masteryOf(card)]++;
+  for (const card of cards) {
+    const level = masteryOf(card);
+    if (level !== 'inactive' || includeInactive) counts[level]++;
+  }
   return counts;
 }
+
+/** Number of cards in the counts that are in study (everything except "inactive"). */
+export const studiedTotal = (counts) => Object.entries(counts).reduce((sum, [id, n]) => (id === 'inactive' ? sum : sum + n), 0);
 
 function reviewsPerDay() {
   const perDay = new Map();
